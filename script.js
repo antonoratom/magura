@@ -1,53 +1,24 @@
-const buttons = document.querySelectorAll(".button");
-const randomLetters = "АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ".split("");
+// gsap.to(".hero-pc_bg", { opacity: 1, duration: 0.4, delay: 1.3 });
 
-class Link {
-  constructor(button, idx) {
-    this.button = button;
-    this.idx = idx;
-    this.textElement = button.querySelector(".button-p"); // Select the specific child element
-    if (!this.textElement) return; // Exit if no .button-p is found
-    this.originalText = this.textElement.innerText;
-    this.randomString = this.originalText.split("");
-    this.frame = 0;
-    this.addHoverEvent();
-  }
+// ----- IMAGE RANDOMIZER HERO ----- //
+const images = document.querySelectorAll(".hero-loader-img_bl img");
+let currentIndex = 0;
+const totalImages = images.length;
 
-  addHoverEvent() {
-    this.button.addEventListener("mouseenter", () => {
-      this.animate();
-    });
+function cycleImageOpacity() {
+  // Set all images to opacity 0
+  gsap.set(images, { opacity: 0 });
 
-    this.button.addEventListener("mouseleave", () => {
-      this.frame = 0;
-      setTimeout(() => {
-        this.frame = 0;
-      }, 1000);
-    });
-  }
+  // Set the current image to opacity 1
+  gsap.to(images[currentIndex], { opacity: 1, duration: 0 });
 
-  animate() {
-    if (this.frame < 20) {
-      // Adjust the number of frames for longer animation
-      if (this.frame % 4 == 0) {
-        // Adjust update frequency for smoother animation
-        for (let i = 0; i < this.randomString.length; i++) {
-          this.randomString[i] =
-            randomLetters[Math.floor(Math.random() * randomLetters.length)];
-        }
-        this.textElement.innerText = this.randomString.join("");
-      }
-      this.frame++;
-      requestAnimationFrame(this.animate.bind(this));
-    } else {
-      this.textElement.innerText = this.originalText;
-    }
-  }
+  // Move to the next image index
+  currentIndex = (currentIndex + 1) % totalImages;
 }
 
-buttons.forEach((button, idx) => {
-  new Link(button, idx);
-});
+// Run the function every 0.2 seconds
+setInterval(cycleImageOpacity, 100);
+// ----- IMAGE RANDOMIZER HERO ENDS ----- //
 
 // Ensure GSAP and ScrollTrigger are loaded in your environment
 gsap.registerPlugin(ScrollTrigger);
@@ -116,90 +87,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-//PIXELS REVEALING ——— GSAP
-$("[pixels-trigger]").each(function () {
-  let pixelTl = gsap.timeline({
-    scrollTrigger: {
-      trigger: $(this),
-      start: "top bottom",
-      end: "400% bottom",
-      // markers: true,
-      scrub: true,
-    },
-  });
-  pixelTl.to(
-    $(this).find("[pixel-top-line='eight'] .pixel_item"),
-    {
-      opacity: -2,
-      stagger: { amount: 0.4, from: "random" },
-    },
-    0
-  );
-
-  pixelTl.to(
-    $(this).find("[pixel-top-line='seven'] .pixel_item"),
-    {
-      opacity: -1,
-      stagger: { amount: 0.4, from: "random" },
-    },
-    "-=0.8"
-  );
-
-  pixelTl.to(
-    $(this).find("[pixel-top-line='six'] .pixel_item"),
-    {
-      opacity: -0.5,
-      stagger: { amount: 0.4, from: "random" },
-    },
-    "-=0.8"
-  );
-
-  pixelTl.to(
-    $(this).find("[pixel-top-line='fifth'] .pixel_item"),
-    {
-      opacity: 0,
-      stagger: { amount: 0.4, from: "random" },
-    },
-    "-=0.8"
-  );
-
-  pixelTl.to(
-    $(this).find("[pixel-top-line='fourth'] .pixel_item"),
-    {
-      opacity: 0,
-      stagger: { amount: 0.4, from: "random" },
-    },
-    "-=0.8"
-  );
-
-  pixelTl.to(
-    $(this).find("[pixel-top-line='third'] .pixel_item"),
-    {
-      opacity: 0,
-      stagger: { amount: 0.4, from: "random" },
-    },
-    "-=0.8"
-  );
-
-  pixelTl.to(
-    $(this).find("[pixel-top-line='second'] .pixel_item"),
-    {
-      opacity: 0,
-      stagger: { amount: 0.4, from: "random" },
-    },
-    "-=0.8"
-  );
-
-  pixelTl.to(
-    $(this).find("[pixel-top-line='first'] .pixel_item"),
-    {
-      opacity: 0,
-      stagger: { amount: 0.4, from: "random" },
-    },
-    "-=0.8"
-  );
-});
-
 document.addEventListener("DOMContentLoaded", function () {
   const soundWrap = document.querySelector(".sound-wrap");
 
@@ -210,21 +97,6 @@ document.addEventListener("DOMContentLoaded", function () {
       bar.classList.toggle("sound-pause");
     });
   });
-});
-
-let charactersScrubTl = gsap.timeline({
-  defaults: { duration: 1 },
-  scrollTrigger: {
-    trigger: " [characters='trigger']",
-    start: "top top",
-    end: "bottom bottom",
-    scrub: true,
-    // markers: true,
-  },
-});
-
-charactersScrubTl.to("[characters='target']", {
-  x: "-100%",
 });
 
 let heroPcScrubTl = gsap.timeline({
@@ -271,32 +143,6 @@ heroPcScrubTl.to(
   },
   0
 );
-
-document.addEventListener("DOMContentLoaded", function () {
-  // Get the width of the .characters-scroll_cont element
-  let charScrollCont = document.querySelector(".characters-scroll_cont");
-  if (charScrollCont) {
-    let charScrollContWidth = charScrollCont.offsetWidth;
-    let mainWrapForCaracters = document.querySelector(
-      ".main-wrap.for-caracters"
-    );
-    if (mainWrapForCaracters) {
-      mainWrapForCaracters.style.height = charScrollContWidth + "px";
-    }
-  }
-
-  // Get the width of the .about-brigade_wrap element
-  let aboutScrollCont = document.querySelector(".about-brigade_wrap");
-  if (aboutScrollCont) {
-    let aboutScrollContWidth = aboutScrollCont.offsetWidth;
-    let mainWrapForAbout = document.querySelector(
-      ".main-wrap.bg-2.for-about-brigade"
-    );
-    if (mainWrapForAbout) {
-      mainWrapForAbout.style.height = aboutScrollContWidth + "px";
-    }
-  }
-});
 
 // Select the last .merch-cli element
 const lastMerchCli = document.querySelector(".merch-cli:last-of-type");
@@ -412,63 +258,3 @@ screenRemoverTl.to(
     // markers: { startColor: "green", endColor: "red", label: "First" }, // Enable markers for debugging
   });
 })();
-
-// ---------- ABOUT BRIGADE TL ---------- //
-let aboutBrigadeScrub = gsap.timeline({
-  defaults: { duration: 1 },
-  scrollTrigger: {
-    trigger: " [about-brigade='trigger']",
-    start: "top top",
-    end: "bottom bottom",
-    scrub: true,
-    // markers: true,
-  },
-});
-
-aboutBrigadeScrub.to("[about-brigade='target']", {
-  x: "-100%",
-});
-
-let aboutBrigadeTlFirst = gsap.timeline({
-  defaults: { duration: 1 },
-  scrollTrigger: {
-    trigger: " [about-tl='trigger']",
-    start: "top top",
-    end: "30% top",
-    scrub: true,
-    // markers: true,
-  },
-});
-
-aboutBrigadeTlFirst.to("[about-tl-bg='target-1']", {
-  width: "100%",
-});
-aboutBrigadeTlFirst.to(
-  "[about-tl-line='target-1']",
-  {
-    x: "100.1%",
-  },
-  0
-);
-
-let aboutBrigadeTlSecond = gsap.timeline({
-  defaults: { duration: 1 },
-  scrollTrigger: {
-    trigger: " [about-tl='trigger']",
-    start: "31% top",
-    end: "100% bottom",
-    scrub: true,
-    // markers: true,
-  },
-});
-
-aboutBrigadeTlSecond.to("[about-tl-bg='target-2']", {
-  width: "100%",
-});
-aboutBrigadeTlSecond.to(
-  "[about-tl-line='target-2']",
-  {
-    x: "100.1%",
-  },
-  0
-);

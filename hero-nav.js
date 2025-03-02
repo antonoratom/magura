@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("test hero nav.js");
   const playerElements = document.querySelectorAll(".hero-select-player_cli");
 
   if (playerElements.length > 0) {

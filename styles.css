@@ -113,3 +113,6 @@
 
 /* clamp app — clamp(4rem, -0.0001rem + 4.4446vw, 7.1112rem) */
 /* raycast — clamp(4rem, 3.584rem + 0.13vw, 7.1112rem) */
+:root {
+  --variable: clamp(2rem, 0.7367750159337157rem + 2.0395156150414278vw, 4rem);
+}
