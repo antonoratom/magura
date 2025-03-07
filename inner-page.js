@@ -91,19 +91,19 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 const innerHeroTl = gsap.timeline();
 
-innerHeroTl.to(
+innerHeroTl.from(
   "[inner-h]",
   {
-    opacity: 1,
+    opacity: 0,
     duration: 0.6,
   },
-  "0"
+  ".40"
 );
-innerHeroTl.to(
+innerHeroTl.from(
   "[inner-arrow]",
   {
-    opacity: 1,
-    x: -12,
+    opacity: 0,
+    x: "-58%",
     duration: 1,
   },
   "<.4"
