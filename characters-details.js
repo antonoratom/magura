@@ -159,8 +159,8 @@ document.addEventListener("DOMContentLoaded", () => {
           opacity: 1,
           scrollTrigger: {
             trigger: trigger,
-            start: "top center",
-            end: "bottom center",
+            start: "-25% center",
+            end: "50% center",
             scrub: true,
             // markers: true,
             onEnter: () => {
@@ -177,18 +177,34 @@ document.addEventListener("DOMContentLoaded", () => {
 // ----- HEIGHT OF THE SECTION ----- //
 if (window.matchMedia("(min-width: 991px)").matches) {
   document.addEventListener("DOMContentLoaded", function () {
-    // Get the width of the .characters-scroll_cont element
-    let charScrollCont = document.querySelector(".characters-scroll_cont");
-    if (charScrollCont) {
-      let charScrollContWidth = charScrollCont.offsetWidth;
-      let mainWrapForCaracters = document.querySelector(
-        ".main-wrap.for-caracters"
-      );
-      if (mainWrapForCaracters) {
-        mainWrapForCaracters.style.height = charScrollContWidth + "px";
-      }
-    }
+    // // Get the width of the .characters-scroll_cont element
+    // let charScrollCont = document.querySelector(".characters-scroll_cont");
+    // if (charScrollCont) {
+    //   let charScrollContWidth = charScrollCont.offsetWidth;
+    //   let mainWrapForCaracters = document.querySelector(
+    //     ".main-wrap.for-caracters"
+    //   );
+    //   if (mainWrapForCaracters) {
+    //     mainWrapForCaracters.style.height = charScrollContWidth + "px";
+    //   }
+    // }
+    let charactersScrubTl = gsap.timeline({
+      defaults: { duration: 1 },
+      scrollTrigger: {
+        trigger: " [characters='trigger']",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+        // markers: true,
+      },
+    });
 
+    charactersScrubTl.to("[characters='target']", {
+      x: "-100%",
+      ease: "linear",
+    });
+
+    // ---------- ABOUT BRIGADE TL ---------- //
     // Get the width of the .about-brigade_wrap element
     let aboutScrollCont = document.querySelector(".about-brigade_wrap");
     if (aboutScrollCont) {
@@ -200,80 +216,65 @@ if (window.matchMedia("(min-width: 991px)").matches) {
         mainWrapForAbout.style.height = aboutScrollContWidth + "px";
       }
     }
-  });
-  let charactersScrubTl = gsap.timeline({
-    defaults: { duration: 1 },
-    scrollTrigger: {
-      trigger: " [characters='trigger']",
-      start: "top top",
-      end: "bottom bottom",
-      scrub: true,
-      // markers: true,
-    },
-  });
+    let aboutBrigadeScrub = gsap.timeline({
+      defaults: { duration: 1 },
+      scrollTrigger: {
+        trigger: " [about-brigade='trigger']",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+        // markers: true,
+      },
+    });
 
-  charactersScrubTl.to("[characters='target']", {
-    x: "-100%",
-  });
+    aboutBrigadeScrub.to("[about-brigade='target']", {
+      x: "-100%",
+      ease: "linear",
+    });
 
-  // ---------- ABOUT BRIGADE TL ---------- //
-  let aboutBrigadeScrub = gsap.timeline({
-    defaults: { duration: 1 },
-    scrollTrigger: {
-      trigger: " [about-brigade='trigger']",
-      start: "top top",
-      end: "bottom bottom",
-      scrub: true,
-      // markers: true,
-    },
-  });
+    let aboutBrigadeTlFirst = gsap.timeline({
+      defaults: { duration: 1 },
+      scrollTrigger: {
+        trigger: " [about-tl='trigger']",
+        start: "top top",
+        end: "30% top",
+        scrub: true,
+        // markers: true,
+      },
+    });
 
-  aboutBrigadeScrub.to("[about-brigade='target']", {
-    x: "-100%",
-  });
+    aboutBrigadeTlFirst.to("[about-tl-bg='target-1']", {
+      width: "100%",
+    });
+    aboutBrigadeTlFirst.to(
+      "[about-tl-line='target-1']",
+      {
+        x: "100.1%",
+      },
+      0
+    );
 
-  let aboutBrigadeTlFirst = gsap.timeline({
-    defaults: { duration: 1 },
-    scrollTrigger: {
-      trigger: " [about-tl='trigger']",
-      start: "top top",
-      end: "30% top",
-      scrub: true,
-      // markers: true,
-    },
-  });
+    let aboutBrigadeTlSecond = gsap.timeline({
+      defaults: { duration: 1 },
+      scrollTrigger: {
+        trigger: " [about-tl='trigger']",
+        start: "31% top",
+        end: "100% bottom",
+        scrub: true,
+        // markers: true,
+      },
+    });
 
-  aboutBrigadeTlFirst.to("[about-tl-bg='target-1']", {
-    width: "100%",
+    aboutBrigadeTlSecond.to("[about-tl-bg='target-2']", {
+      width: "100%",
+    });
+    aboutBrigadeTlSecond.to(
+      "[about-tl-line='target-2']",
+      {
+        x: "100.1%",
+      },
+      0
+    );
   });
-  aboutBrigadeTlFirst.to(
-    "[about-tl-line='target-1']",
-    {
-      x: "100.1%",
-    },
-    0
-  );
-
-  let aboutBrigadeTlSecond = gsap.timeline({
-    defaults: { duration: 1 },
-    scrollTrigger: {
-      trigger: " [about-tl='trigger']",
-      start: "31% top",
-      end: "100% bottom",
-      scrub: true,
-      // markers: true,
-    },
-  });
-
-  aboutBrigadeTlSecond.to("[about-tl-bg='target-2']", {
-    width: "100%",
-  });
-  aboutBrigadeTlSecond.to(
-    "[about-tl-line='target-2']",
-    {
-      x: "100.1%",
-    },
-    0
-  );
 }
 // ----- END OF HEIGHT OF THE SECTION ----- //

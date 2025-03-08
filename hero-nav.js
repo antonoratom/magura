@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("test hero nav.js");
   const playerElements = document.querySelectorAll(".hero-select-player_cli");
 
   if (playerElements.length > 0) {
@@ -18,7 +17,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const selectedValue = this.getAttribute("hero-select");
 
-      const sceneElements = document.querySelectorAll("[character-scene]");
+      // Check if the clicked element has the attribute [character-type="Hero"]
+      const isHeroType = this.getAttribute("character-type") === "Hero";
+
+      // Select the appropriate [character-scene] elements
+      const sceneElements = isHeroType
+        ? document.querySelectorAll("[character-scene]")
+        : document.querySelectorAll(".hero-scene_wrap [character-scene]");
+
       sceneElements.forEach((sceneElement) => {
         sceneElement.style.display =
           sceneElement.getAttribute("hero-background") === selectedValue
@@ -41,25 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   });
-
-  setTimeout(function () {
-    const sceneElements = document.querySelectorAll("[character-scene]");
-    let currentParent = null;
-    let currentIndex = 0;
-
-    sceneElements.forEach((sceneElement) => {
-      const parentElement = sceneElement.parentElement;
-
-      // Reset index if the parent changes
-      if (parentElement !== currentParent) {
-        currentParent = parentElement;
-        currentIndex = 0;
-      }
-
-      sceneElement.style.display = currentIndex === 0 ? "block" : "none";
-      currentIndex++;
-    });
-  }, 5000);
 
   const descriptionElements = document.querySelectorAll(
     ".hero-player-description_cli"
@@ -174,16 +161,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
       animateFrame();
     });
-  }
-});
-
-let lastScrollTop = 0;
-
-window.addEventListener("scroll", function () {
-  const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-  if (Math.abs(scrollTop - lastScrollTop) >= 1000) {
-    ScrollTrigger.refresh();
-    lastScrollTop = scrollTop;
   }
 });

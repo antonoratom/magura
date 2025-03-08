@@ -233,28 +233,54 @@ screenRemoverTl.to(
   0
 );
 
-(function () {
-  // Register ScrollTrigger and ScrollToPlugin
-  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+if (window.innerWidth > 991) {
+  (function () {
+    // Register ScrollTrigger and ScrollToPlugin
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-  // Select elements by their specific attributes
-  const firstTarget = document.querySelector("[hero-snap='first']");
-
-  // Create a ScrollTrigger for the first target with snapping to start or end
-  ScrollTrigger.create({
-    trigger: firstTarget,
-    start: "top top",
-    end: "bottom top",
-    snap: {
-      snapTo: (progress) => {
-        // Snap to the top (0) if within the first 10% of progress, otherwise snap to the bottom (1)
-        return progress < 0.1 ? 0 : 1;
+    const firstTarget = document.querySelector("[hero-snap='first']");
+    ScrollTrigger.create({
+      trigger: firstTarget,
+      start: "top top",
+      end: "bottom top",
+      snap: {
+        snapTo: (progress) => {
+          // Snap to the top (0) if within the first 10% of progress, otherwise snap to the bottom (1)
+          return progress < 0.1 ? 0 : 1;
+        },
+        duration: 1.2,
+        ease: "sine",
+        delay: 0.05,
+        directional: true,
       },
-      duration: 1.2,
-      ease: "sine",
-      delay: 0.05,
-      directional: true,
-    },
-    // markers: { startColor: "green", endColor: "red", label: "First" }, // Enable markers for debugging
-  });
-})();
+      // markers: { startColor: "green", endColor: "red", label: "First" }, // Enable markers for debugging
+    });
+
+    const cardHeightElement = document.querySelector(
+      "[character-card-snap-height]"
+    );
+
+    if (cardHeightElement) {
+      const scrollSnapTargets = document.querySelectorAll(
+        "[character-scroll-snap]"
+      );
+      scrollSnapTargets.forEach((target) => {
+        ScrollTrigger.create({
+          trigger: target,
+          start: "top top",
+          end: "bottom top",
+          snap: {
+            snapTo: (progress) => {
+              return progress < 0.5 ? 0 : 1;
+            },
+            duration: 1.2,
+            ease: "sine",
+            delay: 0.05,
+            directional: true,
+          },
+          // markers: { startColor: "green", endColor: "red", label: "Snap" }, // Enable markers for debugging
+        });
+      });
+    }
+  })();
+}

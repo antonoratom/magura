@@ -1,4 +1,3 @@
-// loaderAnimation.js
 function startLoadingAnimation() {
   const start = performance.now();
 
@@ -111,5 +110,36 @@ function startLoadingAnimation() {
   }
 }
 
-// Export the function to be called from the module
-export { startLoadingAnimation };
+// Run the function to be called from the module
+startLoadingAnimation();
+
+//FROM  hero-nav.js
+let lastScrollTop = 0;
+
+window.addEventListener("scroll", function () {
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+  if (Math.abs(scrollTop - lastScrollTop) >= 1000) {
+    ScrollTrigger.refresh();
+    lastScrollTop = scrollTop;
+  }
+});
+
+setTimeout(function () {
+  const sceneElements = document.querySelectorAll("[character-scene]");
+  let currentParent = null;
+  let currentIndex = 0;
+
+  sceneElements.forEach((sceneElement) => {
+    const parentElement = sceneElement.parentElement;
+
+    // Reset index if the parent changes
+    if (parentElement !== currentParent) {
+      currentParent = parentElement;
+      currentIndex = 0;
+    }
+
+    sceneElement.style.display = currentIndex === 0 ? "block" : "none";
+    currentIndex++;
+  });
+}, 5000);
