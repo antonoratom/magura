@@ -1,3 +1,4 @@
+console.log('test-message);
 // loaderAnimation.js
 function startLoadingAnimation() {
   const start = performance.now();
