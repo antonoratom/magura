@@ -2,7 +2,42 @@ document.addEventListener("DOMContentLoaded", function () {
   const playerElements = document.querySelectorAll(".hero-select-player_cli");
 
   if (playerElements.length > 0) {
-    playerElements[0].classList.add("active");
+    // Set the fifth player as active by default
+    const defaultPlayerIndex = 5;
+    playerElements[defaultPlayerIndex].classList.add("active");
+
+    const selectedValue =
+      playerElements[defaultPlayerIndex].getAttribute("hero-select");
+
+    // Ensure the correct background is displayed for the fifth player
+    const isHeroType =
+      playerElements[defaultPlayerIndex].getAttribute("character-type") ===
+      "Hero";
+    const sceneElements = isHeroType
+      ? document.querySelectorAll("[character-scene]")
+      : document.querySelectorAll(".hero-scene_wrap [character-scene]");
+
+    sceneElements.forEach((sceneElement) => {
+      sceneElement.style.display =
+        sceneElement.getAttribute("hero-background") === selectedValue
+          ? "block"
+          : "none";
+    });
+
+    // Ensure the correct description is displayed for the fifth player
+    const descriptionElements = document.querySelectorAll(
+      ".hero-player-description_cli"
+    );
+    descriptionElements.forEach((descriptionElement) => {
+      if (
+        descriptionElement.getAttribute("hero-description") === selectedValue
+      ) {
+        descriptionElement.style.display = "block";
+        animateDescription(descriptionElement);
+      } else {
+        descriptionElement.style.display = "none";
+      }
+    });
   }
 
   playerElements.forEach((playerElement) => {
@@ -46,16 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     });
-  });
-
-  const descriptionElements = document.querySelectorAll(
-    ".hero-player-description_cli"
-  );
-  descriptionElements.forEach((descriptionElement, index) => {
-    descriptionElement.style.display = index === 0 ? "block" : "none";
-    if (index === 0) {
-      animateDescription(descriptionElement);
-    }
   });
 
   function animateDescription(descriptionElement) {

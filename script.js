@@ -169,71 +169,71 @@ if (lastMerchCli) {
   }
 }
 
-// ---------- HERO SCROLL TL ---------- //
-
-let screenHolderTlScrub = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".hero-scroll-trigger_second",
-    start: "-75% top",
-    end: "0% top",
-    scrub: true,
-    // markers: true,
-  },
-});
-screenHolderTlScrub.to(
-  "[screen-holder]",
-  {
-    height: "100vh",
-  },
-  0
-);
-
-let screenHolderTl = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".hero-scroll-trigger_second",
-    start: "0% 25%",
-    end: "0% 25%",
-    // markers: true,
-    toggleActions: "play none play reverse",
-  },
-});
-
-screenHolderTl.from(
-  "[hero-logo]",
-  {
-    y: "24px",
-    opacity: 0,
-  },
-  0
-);
-screenHolderTl.from(
-  "[hero-cta]",
-  {
-    y: "-24px",
-    opacity: 0,
-  },
-  0
-);
-
-let screenRemoverTl = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".hero-scroll-trigger_second",
-    start: "bottom bottom",
-    end: "bottom bottom",
-    // markers: true,
-    toggleActions: "play none play reverse",
-  },
-});
-screenRemoverTl.to(
-  ".hero-pc_item.center.mid",
-  {
-    opacity: 0,
-    duration: ".2",
-  },
-  0
-);
-
 if (window.innerWidth > 991) {
+  // ---------- HERO SCROLL TL ---------- //
+
+  let screenHolderTlScrub = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".hero-scroll-trigger_second",
+      start: "-75% top",
+      end: "0% top",
+      scrub: true,
+      // markers: true,
+    },
+  });
+  screenHolderTlScrub.to(
+    "[screen-holder]",
+    {
+      height: "100vh",
+    },
+    0
+  );
+
+  let screenHolderTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".hero-scroll-trigger_second",
+      start: "0% 25%",
+      end: "0% 25%",
+      // markers: true,
+      toggleActions: "play none play reverse",
+    },
+  });
+
+  screenHolderTl.from(
+    "[hero-logo]",
+    {
+      y: "24px",
+      opacity: 0,
+    },
+    0
+  );
+  screenHolderTl.from(
+    "[hero-cta]",
+    {
+      y: "-24px",
+      opacity: 0,
+    },
+    0
+  );
+
+  let screenRemoverTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".hero-scroll-trigger_second",
+      start: "bottom bottom",
+      end: "bottom bottom",
+      // markers: true,
+      toggleActions: "play none play reverse",
+    },
+  });
+  screenRemoverTl.to(
+    ".hero-pc_item.center.mid",
+    {
+      opacity: 0,
+      duration: ".2",
+    },
+    0
+  );
+
   (function () {
     // Register ScrollTrigger and ScrollToPlugin
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);

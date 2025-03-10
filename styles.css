@@ -113,22 +113,3 @@
 
 /* clamp app — clamp(4rem, -0.0001rem + 4.4446vw, 7.1112rem) */
 /* raycast — clamp(4rem, 3.584rem + 0.13vw, 7.1112rem) */
-
-[hero-players],
-[hero-character-wrap] {
-  opacity: 0;
-}
-[hero-nav] {
-  opacity: 0;
-  transform: translate(0px, -12px);
-}
-[cta-on-load] {
-  opacity: 0;
-  transform: translate(0px, 12px);
-}
-.hero-loader-img_wrap {
-  display: flex;
-}
-.loader-wrap {
-  display: flex;
-}
