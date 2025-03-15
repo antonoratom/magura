@@ -286,6 +286,7 @@ if (window.innerWidth > 991) {
 }
 
 document.querySelector("[copy-url]").addEventListener("click", function () {
-  const url = window.location.href; // Get the current URL
-  navigator.clipboard.writeText(url); // Copy the URL to clipboard
+  const rootDomain = window.location.origin; // Get the root domain
+  const donateUrl = `${rootDomain}/donate`; // Append /donate
+  navigator.clipboard.writeText(donateUrl); // Copy the URL to clipboard
 });

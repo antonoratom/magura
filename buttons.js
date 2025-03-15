@@ -1,5 +1,5 @@
 const buttons = document.querySelectorAll("[for-button]");
-const randomLetters = "АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ".split("");
+const randomLetters = "ЂЉЊЋЌЎЏ".split("");
 
 class Link {
   constructor(button, idx) {
