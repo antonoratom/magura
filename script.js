@@ -284,3 +284,8 @@ if (window.innerWidth > 991) {
     }
   })();
 }
+
+document.querySelector("[copy-url]").addEventListener("click", function () {
+  const url = window.location.href; // Get the current URL
+  navigator.clipboard.writeText(url); // Copy the URL to clipboard
+});
