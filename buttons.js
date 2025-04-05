@@ -48,3 +48,33 @@ class Link {
 buttons.forEach((button, idx) => {
   new Link(button, idx);
 });
+
+var updateAttributes = function () {
+  var targets = document.querySelectorAll(
+    '[fs-mirrorclick-element^="target-"]'
+  );
+  var triggers = document.querySelectorAll(
+    '[fs-mirrorclick-element^="trigger-"]'
+  );
+  console.log("Targets found:", targets.length);
+  console.log("Triggers found:", triggers.length);
+
+  if (targets.length === 3 && triggers.length === 3) {
+    targets.forEach(function (target, index) {
+      var number = 301 + index;
+      var newTarget = "target-" + number;
+      target.setAttribute("fs-mirrorclick-element", newTarget);
+    });
+
+    triggers.forEach(function (trigger, index) {
+      var number = 301 + index;
+      var newTrigger = "trigger-" + number;
+      trigger.setAttribute("fs-mirrorclick-element", newTrigger);
+    });
+
+    console.log("Attributes updated successfully.");
+
+    // Disconnect the observer once the attributes are updated
+    observer.disconnect();
+  }
+};
