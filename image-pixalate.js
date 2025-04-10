@@ -101,8 +101,9 @@
 
 // ------- CODE TO ADJUST -------- //
 $(".merch-cli").each(function () {
-  const triggers = $(this).find("[pixalate-img-trigger]");
-  const targets = $(this).find("[pixalate-img-target]");
+  const merchCli = $(this); // <-- cache current merch-cli
+  const triggers = merchCli.find("[pixalate-img-trigger]");
+  const targets = merchCli.find("[pixalate-img-target]");
 
   triggers.each(function () {
     const trigger = this;
@@ -133,17 +134,14 @@ $(".merch-cli").each(function () {
 
       $(trigger).on("click", function () {
         console.log(`Trigger clicked: ${triggerId}`);
-        console.log(
-          `Target affected: ${$(target).attr("pixalate-img-target")}`
-        );
+        console.log(`Target affected: ${target.attr("pixalate-img-target")}`);
 
-        // Remove .current-link from all triggers and add to the clicked one
+        // Scoped to current merch-cli
         triggers.removeClass("current-link");
         $(trigger).addClass("current-link");
 
-        // Remove .current-tab from all .merch-preview_img-wrap elements and add to the corresponding one
-        $(".merch-preview_img-wrap").removeClass("current-tab");
-        $(target).closest(".merch-preview_img-wrap").addClass("current-tab");
+        merchCli.find(".merch-preview_img-wrap").removeClass("current-tab");
+        target.closest(".merch-preview_img-wrap").addClass("current-tab");
 
         pixaleteTl.restart();
       });
