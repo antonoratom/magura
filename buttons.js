@@ -78,3 +78,32 @@ var updateAttributes = function () {
     observer.disconnect();
   }
 };
+
+$(document).ready(function () {
+  const $follower = $("[trigger-to-play-sound]");
+  let mouseMoveHandler;
+
+  if ($follower.length) {
+    // Track mouse movement
+    mouseMoveHandler = function (e) {
+      $follower.css({
+        left: e.pageX + "px",
+        top: e.pageY + "px",
+        position: "absolute",
+        transform: "translate(-50%, -95%)",
+        pointerEvents: "none", // optional: makes sure it doesn’t block clicks
+      });
+    };
+
+    $(document).on("mousemove", mouseMoveHandler);
+
+    // On first click, fade out and remove tracking
+    $(document).one("click", function () {
+      $(document).off("mousemove", mouseMoveHandler); // stop tracking
+
+      $follower.fadeOut(300, function () {
+        $follower.remove(); // optional: remove from DOM after fade
+      });
+    });
+  }
+});
